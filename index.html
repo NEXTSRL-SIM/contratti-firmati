@@ -1,61 +1,58 @@
 <!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Contratti firmati</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F2F4F7;--surface:#fff;--border:#E2E7EE;--text:#111827;--text-dim:#6B7686;--text-muted:#94A3B8;--accent:#0891B2;--accent-dark:#0E7490;--accent-light:#ECFEFF;--success:#16A34A;--error:#DC2626}
+:root{--bg:#F2F4F7;--sf:#fff;--sf2:#F8FAFC;--ln:#E6E8EE;--ink:#111827;--ink2:#3F4A5A;--ink3:#6B7686;--ac:#0891B2;--acd:#0E7490;--acw:#ECFEFF;--gr:#16A34A;--grw:#DCFCE7;--am:#B45309;--amw:#FEF3C7;--er:#DC2626}
+:root[data-tema="scuro"]{--bg:#0F141B;--sf:#161D27;--sf2:#131A23;--ln:#263243;--ink:#E6EBF2;--ink2:#CBD5E1;--ink3:#94A3B8;--acw:rgba(34,211,238,.1);--grw:rgba(52,211,153,.12);--amw:rgba(245,158,11,.15);--am:#F59E0B}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);padding:22px 24px 40px}
+body{font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);padding:22px 24px 40px;font-size:13px}
 button{font-family:inherit}
-.container{max-width:1000px}
-.testa{border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:20px}
-.testa h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0}
-.testa p{font-size:13px;color:var(--text-dim);margin-top:4px}
-.sez{display:flex;align-items:baseline;gap:10px;margin:0 0 4px}
-.sez h2{font-size:15px;font-weight:800;margin:0}
-.subtitle{font-size:13px;color:var(--text-dim);margin-bottom:12px}
-.blocco{margin-bottom:28px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px 14px 18px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .15s,box-shadow .15s}
-.card:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(8,145,178,.08)}
-.card-info{flex:1;min-width:0}
-.card-name{font-size:15px;font-weight:700}
-.card-meta{font-size:12px;color:var(--text-dim);margin-top:2px}
-.card-price{font-size:14px;font-weight:800;min-width:90px;text-align:right;font-variant-numeric:tabular-nums}
-.btn-firmato{background:var(--accent);color:#fff;border:1px solid var(--accent);padding:9px 18px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;min-width:160px;position:relative;overflow:hidden;transition:background .15s,box-shadow .15s}
-.btn-firmato:hover{background:var(--accent-dark);border-color:var(--accent-dark);box-shadow:0 4px 14px rgba(8,145,178,.25)}
-.btn-firmato:disabled{opacity:.6;cursor:not-allowed;box-shadow:none}
+.container{max-width:1100px}
+.ph{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.ph h1{font-size:22px;font-weight:800;letter-spacing:-.02em;width:100%}
+.ph p{font-size:13px;color:var(--ink3)}
+.agg{font-size:11px;color:var(--ink3);border:1px solid var(--ln);background:var(--sf);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
+.c{background:var(--sf);border:1px solid var(--ln);border-radius:14px;overflow:hidden;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.hd{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--ln)}
+.hd .i{width:28px;height:28px;border-radius:8px;background:var(--acw);color:var(--ac);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.hd .i.ok{background:var(--grw);color:var(--gr)}
+.hd b{display:block;font-size:14px;font-weight:700}
+.hd small{display:block;font-size:12px;color:var(--ink3);margin-top:1px}
+.hd .x{margin-left:auto;font-size:11px;font-weight:700;color:var(--ac);background:var(--acw);border-radius:999px;padding:3px 10px;white-space:nowrap}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{text-align:left;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-weight:700;padding:9px 18px;background:var(--sf2);border-bottom:1px solid var(--ln)}
+td{padding:11px 18px;border-bottom:1px solid var(--ln);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--sf2)}
+td.nm b{display:block;font-size:13.5px;font-weight:700}
+td.nm small{display:block;font-size:11.5px;color:var(--ink3);margin-top:1px;font-variant-numeric:tabular-nums}
+td.v{color:var(--ink2)}
+td.p,th.p{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+td.a{text-align:right;white-space:nowrap}
+.btn-firmato{display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:#fff;border:1px solid var(--ac);padding:8px 16px;border-radius:999px;font-size:12.5px;font-weight:700;cursor:pointer;min-width:150px;justify-content:center;position:relative;transition:background .15s}
+.btn-firmato:hover{background:var(--acd);border-color:var(--acd)}
+.btn-firmato:disabled{opacity:.6;cursor:not-allowed}
 .btn-firmato.loading{color:transparent}
-.btn-firmato.loading::after{content:'';position:absolute;width:16px;height:16px;border:2px solid transparent;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;left:calc(50% - 8px);top:calc(50% - 8px)}
-.btn-firmato.done{background:var(--success);border-color:var(--success)}
-#firmati .card{opacity:1!important;background:#FBFCFD}
-#firmati .card-name{font-weight:600;color:#3F4A5A}
-#firmati .btn-firmato{background:#fff!important;color:#B45309;border-color:#F3C77A;min-width:120px!important}
-#firmati .btn-firmato:hover{background:#FFFBEB!important;border-color:#D97706;box-shadow:none}
-.empty{text-align:center;padding:36px;color:var(--text-muted);font-size:13px;background:var(--surface);border:1px dashed var(--border);border-radius:14px}
+.btn-firmato.loading::after{content:'';position:absolute;width:15px;height:15px;border:2px solid transparent;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;left:calc(50% - 7px);top:calc(50% - 7px)}
+.btn-firmato.done{background:var(--gr);border-color:var(--gr)}
+.btn-rip{background:var(--amw);color:var(--am);border:1px solid transparent;min-width:110px}
+.btn-rip:hover{background:var(--amw);border-color:#F3C77A}
+.empty{text-align:center;padding:28px;color:var(--ink3);font-size:13px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:20px;right:20px;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:100;background:#fff;box-shadow:0 10px 30px rgba(16,24,40,.15)}
+.toast{position:fixed;bottom:20px;right:20px;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transform:translateY(12px);transition:all .3s;z-index:100;background:var(--sf);box-shadow:0 10px 30px rgba(16,24,40,.15)}
 .toast.show{opacity:1;transform:translateY(0)}
-.toast.ok{border:1px solid var(--success);color:var(--success)}
-.toast.err{border:1px solid var(--error);color:var(--error)}
-@media (max-width:640px){.card{flex-wrap:wrap}.card-price{text-align:left}.btn-firmato{width:100%}}
-.chiave{max-width:420px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;margin-top:10px}
-.chiave p{font-size:13px;color:var(--text-dim);margin-bottom:10px}
+.toast.ok{border:1px solid var(--gr);color:var(--gr)}
+.toast.err{border:1px solid var(--er);color:var(--er)}
+.chiave{max-width:420px;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:18px;margin:14px 18px}
+.chiave p{font-size:13px;color:var(--ink3);margin-bottom:10px}
 .chiave form{display:flex;gap:8px}
-.chiave input{flex:1;border:1px solid var(--border);border-radius:999px;padding:9px 14px;font:inherit;font-size:13px}
-:root[data-tema="scuro"]{--bg:#0F141B;--surface:#161D27;--border:#263243;--text:#E6EBF2;--text-dim:#94A3B8}
-:root[data-tema="scuro"] #firmati .card{background:#131A23}
-:root[data-tema="scuro"] #firmati .card-name{color:#CBD5E1}
-:root[data-tema="scuro"] #firmati .btn-firmato{background:transparent!important}
+.chiave input{flex:1;border:1px solid var(--ln);border-radius:999px;padding:9px 14px;font:inherit;font-size:13px;background:var(--sf);color:var(--ink)}
+@media (max-width:700px){table{table-layout:auto}col{width:auto!important}th:nth-child(2),td.v{display:none}.btn-firmato{min-width:0}}
 </style>
 </head><body><div class="container">
-  <div class="testa"><h1>Contratti firmati</h1><p>Contratti mandati ai clienti: si segnano quando tornano firmati.</p></div>
-  <div class="blocco">
-    <div class="sez"><h2>Inviati, in attesa di firma</h2></div>
-    <p class="subtitle">Clicca il pulsante quando il cliente ha restituito il contratto firmato. Riceverai una mail di conferma.</p>
-    <div id="list"><p class="empty">Caricamento...</p></div>
-  </div>
-  <div class="blocco">
-    <div class="sez"><h2>Gi&agrave; firmati</h2></div>
-    <p class="subtitle">Clicca Ripristina per rimettere il contratto nella lista sopra.</p>
-    <div id="firmati"><p class="empty">Caricamento...</p></div>
-  </div>
+  <div class="ph"><h1>Contratti firmati</h1><p>Segna la firma e la pratica prosegue verso l'ordine in Odoo.</p><span class="agg" id="agg">aggiornato --:--</span></div>
+  <section class="c"><div class="hd"><span class="i"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 12 3 3 5-6"/></svg></span><div><b>Contratti inviati</b><small>Clicca il pulsante quando il cliente ha restituito il contratto firmato. Riceverai una mail di conferma.</small></div><span class="x" id="nAtt" hidden></span></div>
+    <table><colgroup><col style="width:38%"><col style="width:24%"><col style="width:16%"><col style="width:22%"></colgroup><thead><tr><th>Cliente</th><th>Venditore</th><th class="p">Totale</th><th></th></tr></thead><tbody id="list"><tr><td colspan="4" class="empty">Caricamento...</td></tr></tbody></table></section>
+  <section class="c"><div class="hd"><span class="i ok"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Gi&agrave; firmati</b><small>Clicca Ripristina per rimettere il contratto nella lista sopra.</small></div></div>
+    <table><colgroup><col style="width:38%"><col style="width:24%"><col style="width:16%"><col style="width:22%"></colgroup><tbody id="firmati"><tr><td colspan="4" class="empty">Caricamento...</td></tr></tbody></table></section>
 </div>
 <div class="toast" id="toast"></div>
 <script>
@@ -67,16 +64,18 @@ var WH='https://n8n.srv1030489.hstgr.cloud/webhook/segnala-contratto-firmato';
 var PASS='';
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function toast(m,ok){var t=document.getElementById('toast');t.textContent=m;t.className='toast '+(ok?'ok':'err')+' show';setTimeout(function(){t.classList.remove('show')},4000)}
-function fmt(v){if(!v)return'--';return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',minimumFractionDigits:0}).format(v)}
+function fmt(v){if(!v)return'--';return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',minimumFractionDigits:2}).format(v)}
+var OK='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+function data(t){ if(!t) return ''; try{ return new Date(t).toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'}); }catch(e){ return ''; } }
 function card(p,firmato){
   var n=esc(p.nome), q=esc(String(p.nome).replace(/'/g,''));
-  return '<div class="card"><div class="card-info"><div class="card-name">'+n+'</div><div class="card-meta">#'+esc(p.id.substring(0,8))+' • '+esc(p.vendor)+(firmato?' • Firmato':'')+'</div></div><div class="card-price">'+fmt(p.totale)+'</div>'+
-    (firmato?'<button class="btn-firmato" id="rst-'+p.id+'" onclick="ripristina(\''+p.id+'\',\''+q+'\')">Ripristina</button>'
-            :'<button class="btn-firmato" id="btn-'+p.id+'" onclick="segna(\''+p.id+'\',\''+q+'\')">Contratto firmato</button>')+'</div>';
+  return '<tr><td class="nm"><b>'+n+'</b><small>#'+esc(p.id.substring(0,8))+(firmato&&p.firmato_il?' · firmato '+data(p.firmato_il):'')+'</small></td><td class="v">'+esc(p.vendor)+'</td><td class="p">'+fmt(p.totale)+'</td><td class="a">'+
+    (firmato?'<button class="btn-firmato btn-rip" id="rst-'+p.id+'" onclick="ripristina(\''+p.id+'\',\''+q+'\')">Ripristina</button>'
+            :'<button class="btn-firmato" id="btn-'+p.id+'" onclick="segna(\''+p.id+'\',\''+q+'\')">'+OK+'Contratto firmato</button>')+'</td></tr>';
 }
 function chiediPass(msg){
   var h='<div class="chiave"><p>'+(msg||'Scrivi la password della regia per vedere i contratti.')+'</p><form id="fp"><input type="password" id="ip" autocomplete="current-password" placeholder="password"><button class="btn-firmato" style="min-width:0">Entra</button></form></div>';
-  document.getElementById('list').innerHTML=h; document.getElementById('firmati').innerHTML='';
+  document.getElementById('list').innerHTML='<tr><td colspan="4">'+h+'</td></tr>'; document.getElementById('firmati').innerHTML='';
   document.getElementById('fp').onsubmit=function(e){e.preventDefault();PASS=document.getElementById('ip').value.trim();try{sessionStorage.setItem('regia_pass',PASS)}catch(x){}carica();};
 }
 async function carica(){
@@ -85,9 +84,11 @@ async function carica(){
     var r=await fetch(EF+'?t='+encodeURIComponent(PASS)); var d=await r.json();
     if(r.status===401){PASS='';try{sessionStorage.removeItem('regia_pass')}catch(x){}chiediPass('Password non valida, riprova.');return;}
     if(!d.ok) throw new Error(d.errore||'errore');
-    document.getElementById('list').innerHTML=d.attesa.length?d.attesa.map(function(p){return card(p,false)}).join(''):'<p class="empty">Nessun contratto in attesa di firma</p>';
-    document.getElementById('firmati').innerHTML=d.firmati.length?d.firmati.map(function(p){return card(p,true)}).join(''):'<p class="empty">Nessun contratto firmato</p>';
-  }catch(e){document.getElementById('list').innerHTML='<p class="empty">Errore: '+esc(e.message)+'</p>';}
+    var na=document.getElementById('nAtt'); na.hidden=!d.attesa.length; na.textContent=d.attesa.length+(d.attesa.length===1?' da firmare':' da firmare');
+    document.getElementById('agg').textContent='aggiornato '+new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('list').innerHTML=d.attesa.length?d.attesa.map(function(p){return card(p,false)}).join(''):'<tr><td colspan="4" class="empty">Nessun contratto in attesa di firma</td></tr>';
+    document.getElementById('firmati').innerHTML=d.firmati.length?d.firmati.map(function(p){return card(p,true)}).join(''):'<tr><td colspan="4" class="empty">Nessun contratto firmato</td></tr>';
+  }catch(e){document.getElementById('list').innerHTML='<tr><td colspan="4" class="empty">Errore: '+esc(e.message)+'</td></tr>';}
 }
 function load(){carica()} function loadFirmati(){}
 async function segna(id,name){
