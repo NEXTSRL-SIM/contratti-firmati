@@ -46,6 +46,20 @@ td.a{text-align:right;white-space:nowrap}
 .chiave form{display:flex;gap:8px}
 .chiave input{flex:1;border:1px solid var(--ln);border-radius:999px;padding:9px 14px;font:inherit;font-size:13px;background:var(--sf);color:var(--ink)}
 @media (max-width:700px){table{table-layout:auto}col{width:auto!important}th:nth-child(2),td.v{display:none}.btn-firmato{min-width:0}}
+
+/* PORTALE NEXT-110: finestre a video del portale al posto degli avvisi del browser */
+.velo{position:fixed;inset:0;background:rgba(15,20,27,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:90}
+.fin{background:var(--sf,#fff);color:var(--ink,#111827);border:1px solid var(--ln,#E6E8EE);border-radius:16px;width:100%;max-width:480px;box-shadow:0 20px 50px rgba(16,24,40,.25);overflow:hidden;font-family:inherit}
+.fin .fh{display:flex;align-items:flex-start;gap:12px;padding:18px 20px 8px}
+.fin .fh .fi{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:16px;font-weight:800}
+.fin .fh b{display:block;font-size:15px;font-weight:800}
+.fin .fm{padding:4px 20px 16px 66px;font-size:13.5px;line-height:1.55;color:var(--ink2,#3F4A5A)}
+.fin .fp{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--ln,#E6E8EE);background:var(--sf2,#F8FAFC)}
+.fin .fb{border:1px solid var(--ln,#E6E8EE);background:var(--sf,#fff);color:var(--ink2,#3F4A5A);border-radius:999px;padding:8px 16px;font:700 12.5px inherit;font-family:inherit;cursor:pointer}
+.fin .fb.si{background:var(--ac,#0891B2);border-color:var(--ac,#0891B2);color:#fff}
+.fin .fb.rosso{background:#DC2626;border-color:#DC2626;color:#fff}
+.fin .gira{width:16px;height:16px;border:2px solid var(--acw,#ECFEFF);border-top-color:var(--ac,#0891B2);border-radius:50%;animation:fgira .8s linear infinite;display:inline-block;vertical-align:-3px;margin-right:8px}
+@keyframes fgira{to{transform:rotate(360deg)}}
 </style>
 </head><body><div class="container">
   <div class="ph"><h1>Contratti firmati</h1><p>Segna la firma e la pratica prosegue verso l'ordine in Odoo.</p><span class="agg" id="agg">aggiornato --:--</span></div>
@@ -56,6 +70,20 @@ td.a{text-align:right;white-space:nowrap}
 </div>
 <div class="toast" id="toast"></div>
 <script>
+/* PORTALE NEXT-110: finestre a video (chiedi, avvisa, attendi) al posto di confirm/alert del browser */
+function fChiudi(){var v=document.getElementById('fVelo');if(v)v.remove();}
+function fEsc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function fApri(tipo,titolo,testoHtml,bottoni){fChiudi();var col={chiedi:['var(--acw,#ECFEFF)','var(--ac,#0891B2)','?'],ok:['var(--grw,#DCFCE7)','var(--gr,#16A34A)','✓'],attenzione:['var(--amw,#FEF3C7)','var(--am,#B45309)','!'],errore:['#FEE2E2','#DC2626','×'],attesa:['var(--acw,#ECFEFF)','var(--ac,#0891B2)','…']}[tipo]||['#eee','#333','·'];
+ var v=document.createElement('div');v.className='velo';v.id='fVelo';
+ v.innerHTML='<div class="fin" role="dialog" aria-modal="true"><div class="fh"><span class="fi" style="background:'+col[0]+';color:'+col[1]+'">'+col[2]+'</span><div><b>'+fEsc(titolo)+'</b></div></div><div class="fm">'+testoHtml+'</div>'+(bottoni&&bottoni.length?'<div class="fp">'+bottoni.map(function(b,i){return '<button class="fb '+(b[1]||'')+'" data-fb="'+i+'">'+fEsc(b[0])+'</button>';}).join('')+'</div>':'')+'</div>';
+ document.body.appendChild(v);
+ return new Promise(function(ok){v.addEventListener('click',function(e){var b=e.target.closest('[data-fb]');if(b){var i=+b.getAttribute('data-fb');fChiudi();ok(bottoni[i][2]);}else if(e.target===v&&tipo!=='attesa'){fChiudi();ok(null);}});
+  var s=v.querySelector('.fb.si,.fb.rosso');if(s)s.focus();});}
+function chiedi(titolo,testoHtml,si,rosso){return fApri('chiedi',titolo,testoHtml,[['Annulla','',false],[si||'Conferma',rosso?'rosso':'si',true]]);}
+function avvisa(tipo,titolo,testoHtml){return fApri(tipo,titolo,testoHtml,[['Chiudi','si',true]]);}
+function attendi(testo){fApri('attesa',testo||'Un momento…','<span class="gira"></span>'+fEsc(testo||'Sto lavorando…'),[]);}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){var v=document.getElementById('fVelo');if(v&&!v.querySelector('.gira'))v.click();}});
+
 /* PORTALE NEXT-110: stessa pagina di prima (WF5 - ODOO, nodo «Pagina contratti firmati»), ma senza chiavi:
    legge e ripristina con la funzione contratti-firmati, protetta dalla password della regia.
    «Contratto firmato» resta sul webhook n8n segnala-contratto-firmato, che manda la mail. */
@@ -95,7 +123,7 @@ function load(){carica()} function loadFirmati(){}
 async function segna(id,name){
   var btn=document.getElementById('btn-'+id);
   if(!btn||btn.disabled)return;
-  if(!confirm('Confermi che il contratto di '+name+' e\' stato firmato?\n\nRiceverai una mail di conferma con il pulsante per creare l\'ordine in Odoo.'))return;
+  if(!await chiedi('Contratto firmato','Confermi che il contratto di <b>'+fEsc(name)+'</b> è stato firmato?<br><br>Riceverai una mail di conferma con il pulsante per creare l\'ordine in Odoo.','Sì, è firmato'))return;
   btn.disabled=true;btn.classList.add('loading');btn.textContent='';
   try{
     var r=await fetch(WH+'?practice_id='+id);var d=await r.json();
@@ -106,7 +134,7 @@ async function segna(id,name){
 async function ripristina(id,name){
   var btn=document.getElementById('rst-'+id);
   if(!btn||btn.disabled)return;
-  if(!confirm('Ripristinare '+name+'? Il contratto tornera\' nella lista da firmare.'))return;
+  if(!await chiedi('Ripristina','Rimetto <b>'+fEsc(name)+'</b> fra i contratti in attesa di firma?','Ripristina'))return;
   btn.disabled=true;btn.textContent='...';
   try{
     var r=await fetch(EF,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({t:PASS,ripristina:id})});var d=await r.json();
